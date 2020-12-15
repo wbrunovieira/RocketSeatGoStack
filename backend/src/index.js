@@ -1,12 +1,24 @@
 const express = require('express');
 
-const {uuid}= require('uuidv4')
+const {uuid, isUuid}= require('uuidv4')
 
 const app = express()
 
 app.use(express.json());
 
 const projects = []
+
+function logRequest(request, response,next) {
+    const {method, url} = request;
+    const logLabel = `[${method.toUpperCase()}] ${url}`;
+    
+    console.time(logLabel)
+     next();
+
+     console.timeEnd(logLabel)
+}
+
+app.use(logRequest)
 
 app.get('/projects', (request, response) => {
     const {title} = request.query;
