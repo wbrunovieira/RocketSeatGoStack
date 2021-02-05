@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-cli serve --mode development"
+    "start": "webpack-cli serve --mode development",
+    "dev": "webpack-cli serve --mode development",
+    "build": "webpack --mode production"
   },
   "license": "MIT",
   "dependencies": {
@@ -12,6 +14,7 @@
     "@babel/preset-env": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@webpack-cli/init": "^1.0.3",
+    "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
     "react": "^17.0.1",
