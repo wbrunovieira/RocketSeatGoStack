@@ -3,7 +3,9 @@ import routes from './routes';
 
 const app = express();
 
+app.use(express.json());
 app.use(routes);
 
-app.listen(3030, () => { console.log('🚀 Servidor rodando ');
+app.listen(3333, () => { console.log('🚀 Servidor rodando ');
 });
+
