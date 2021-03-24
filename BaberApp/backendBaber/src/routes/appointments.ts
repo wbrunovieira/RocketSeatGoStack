@@ -1,37 +1,31 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
-import { parseISO, startOfHour, isEqual } from 'date-fns'
+import { parseISO } from 'date-fns'
+import AppointmentsRepository from '../repositories/AppointmentsRepository';
+import CreateAppointmentService from '../service/CreateAppointmentService';
 
 const appointmentsRouter = Router();
+const appointmentsRepository = new AppointmentsRepository();
 
-interface Appointment {
-    id: string;
-    provider: string;
-    date:Date;
-}
+appointmentsRouter.get('/', (request, response) => {
+    const appointments = appointmentsRepository.all();
 
-const appointments: Appointment[] = [];
+    return response.json(appointments);
+})
 
 appointmentsRouter.post('/', (request, response) => {
+   try {
     const { provider, date } = request.body;
 
-    const parsedDate = startOfHour(parseISO(date));
+    const parsedDate = parseISO(date);
 
-    const findAppointmentsInSameDate = appointments.find(appointment => isEqual(parsedDate, appointment.date));
+    const createAppointment = new CreateAppointmentService(appointmentsRepository);
 
-    if (findAppointmentsInSameDate) {
-        return response.status(400).json({message: 'Esse horario nao esta disponivel'})
-    }
-
-    const appointment = {
-        id: uuid(),
-        provider,
-        date: parsedDate,
-    };
-
-    appointments.push(appointment);
+    const appointment = createAppointment.execute( { date:parsedDate, provider });
 
     return response.json(appointment);
+   } catch(err) {
+       return response.status(400).json({ error: err.message });
+   }
 })
 
 export default appointmentsRouter;
