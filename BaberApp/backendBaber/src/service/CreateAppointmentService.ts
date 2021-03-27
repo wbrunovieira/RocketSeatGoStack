@@ -14,16 +14,16 @@ class CreateAppointmentService {
     public async execute( { date, provider_id }:Request): Promise<Appointment>{
 
         const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-        const appointmendDate = startOfHour(date)
+        const appointmentDate = startOfHour(date)
 
-   const findAppointmentsInSameDate = await appointmentsRepository.findByDate(appointmendDate);
+   const findAppointmentsInSameDate = await appointmentsRepository.findByDate(appointmentDate);
 
     if (findAppointmentsInSameDate) {
         throw Error('Esse horario nao esta disponivel');
 
     }
 
-   const appointment = appointmentsRepository.create( { provider_id, date: appointmendDate,});
+   const appointment = appointmentsRepository.create( { provider_id, date: appointmentDate,});
 
    await appointmentsRepository.save(appointment);
 
