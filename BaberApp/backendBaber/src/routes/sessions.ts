@@ -6,11 +6,11 @@ import AuthenticateUserService from '../service/AuthenticateUserService';
 
 const sessionsRouter = Router();
 
-interface User {
+// interface User {
 
-    email: string;
-    password?: string;
-}
+//     email: string;
+//     password?: string;
+// }
 
 sessionsRouter.post('/', async (request, response) => {
    try {
@@ -18,14 +18,14 @@ sessionsRouter.post('/', async (request, response) => {
 
     const authenticateUser = new AuthenticateUserService();
 
-     const { user }: User = await authenticateUser.execute({
+     const   {user, token }= await authenticateUser.execute({
         email,
         password,
     });
 
-     delete user.password;
+    // delete user.password;
 
-    return response.json( { user } );
+    return response.json( {user, token} );
 
    } catch(err) {
        return response.status(400).json({ error: err.message });
