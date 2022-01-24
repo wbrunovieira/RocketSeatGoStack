@@ -6,6 +6,8 @@ import fs from 'fs';
 import uploadConfig from '../config/upload';
 import { fromString } from 'uuidv4';
 
+import AppError from '../errors/AppError'
+
 interface Request {
     user_id: string;
     avatarFileName: string;
@@ -19,7 +21,7 @@ class UpdateUserAvatarService {
         const user = await usersRepository.findOne(user_id);
 
         if(!user) {
-            throw new Error('Somente usario logado podem alterar foto.');
+            throw new AppError('Somente usario logado podem alterar foto.', 401);
         }
 
         if(user.avatar){
