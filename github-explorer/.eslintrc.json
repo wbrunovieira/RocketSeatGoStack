@@ -14,7 +14,7 @@
     "parserOptions": {
 
         "ecmaFeatures": {
-            "jsx": true
+            //"jsx": true
         },
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -27,6 +27,7 @@
     ],
     "rules": {
         "prettier/prettier": "error",
+        "exclude": "/node_modules/",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "react/jsx-filename-extension": [1, { "extension": ["*.tsx"] }],
@@ -34,7 +35,7 @@
         "@typescript-eslint/explicit-function-return-type": [
           "error",
           {
-            "allowExpressions": true,
+            "allowExpressions": true
           }
         ],
         "import/extensions": [
