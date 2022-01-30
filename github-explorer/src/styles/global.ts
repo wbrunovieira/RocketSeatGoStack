@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import BackgroundGithub from '../assets/github-background.svg';
+
 export default createGlobalStyle`
 
 *{
@@ -11,7 +13,19 @@ export default createGlobalStyle`
 
 body{
 
-    background: #f0f0f5;
+    background: #f0f0f5 url(${BackgroundGithub}) no-repeat 70% top;
     -webkit-font-smoothing: antialiased;
 }
+
+body, input, button {
+    font: 16px Roboto, sans-serif;
+  }
+
+  #root {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
 `;
