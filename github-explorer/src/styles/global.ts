@@ -28,4 +28,8 @@ body, input, button {
     display: flex;
     justify-content: center;
   }
+
+  button {
+      cursor: pointer;
+  }
 `;
