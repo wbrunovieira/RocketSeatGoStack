@@ -1,4 +1,5 @@
 import React , { useState, useEffect,FormEvent}from "react";
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -22,12 +23,14 @@ const Dashboard: React.FC  = () => {
 
     const [repositories, setRepositories] = useState<Repository[]>(() => {
         const storedRepositories = localStorage.getItem(
-          '@GithubExplorer:respositories',
+            '@GitHubExporer:repositories',
         );
         if (storedRepositories) {
           return JSON.parse(storedRepositories);
+        } else {
+
+            return [];
         }
-        return [];
       });
     const [inputError, setInputError] = useState('');
     const [ newRepo, setNewRepo] = useState('');
@@ -81,14 +84,14 @@ if(!newRepo) {
         { inputError && <Error>{inputError}</Error>}
         <Repositories>
            {repositories.map(repository => (
-            <a key={repository.full_name} href="teste">
+            <Link key={repository.full_name} to={`/repositories/${repository.full_name}`}>
                 <img  src={repository.owner.avatar_url} alt={repository.owner.login}/>
                 <div>
                     <strong>{repository.full_name}</strong>
                     <p>{repository.description}</p>
                 </div>
                 <FiChevronRight size="20px" />
-            </a>
+            </Link>
            ))}
 
 
